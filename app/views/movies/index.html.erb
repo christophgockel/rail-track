@@ -1,0 +1,11 @@
+<h1>Movies</h1>
+
+<% if Movie.any? %>
+  <ul>
+  <% Movie.all.each do |movie| %>
+    <li><%= movie.title %> <time><%= movie.release_date.strftime("%e %B %Y") %></time></li>
+  <% end %>
+  </ul>
+<% else %>
+  <p>No movies have been added yet.</p>
+<% end %>
