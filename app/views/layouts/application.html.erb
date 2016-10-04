@@ -2,12 +2,25 @@
 <html>
 <head>
   <title>RailTrack</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= csrf_meta_tags %>
 </head>
+
 <body>
+  <h1>Movies</h1>
 
-<%= yield %>
+  <% if flash.any? %>
+    <ul class="flashes">
+      <% flash.alert.try(:each) do |alert| %>
+        <li class="alert"><%= alert %></li>
+      <% end %>
 
+      <% if flash.notice %>
+        <li class="notice"><%= flash.notice %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= yield %>
 </body>
 </html>

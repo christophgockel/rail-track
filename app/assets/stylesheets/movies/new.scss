@@ -1,0 +1,21 @@
+form {
+  input {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    display: block;
+    font-size: 1em;
+    margin-bottom: 10px;
+    padding: 1em;
+    width: 100%;
+  }
+
+  input[type=submit] {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    background-color: #3a3f51;
+    color: #edf1f2;
+  }
+  input[type=submit]:hover {
+    cursor: pointer;
+  }
+}
