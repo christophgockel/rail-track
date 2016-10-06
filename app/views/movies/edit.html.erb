@@ -1,0 +1,14 @@
+<h2>Edit Movie</h2>
+
+<%= form_for(@movie, url: update_movie_path) do |form| %>
+  <%= form.label(:title) %>
+  <%= form.text_field(:title) %>
+
+  <%= form.label(:release_date) %>
+  <%= form.date_field(:release_date) %>
+
+  <%= form.label(:description) %>
+  <%= form.text_field(:description) %>
+
+  <%= form.submit %>
+<% end %>

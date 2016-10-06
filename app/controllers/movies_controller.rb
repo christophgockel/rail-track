@@ -17,9 +17,28 @@ class MoviesController < ApplicationController
     end
   end
 
+  def edit
+    @movie = Movie.find(movie_id)
+  end
+
+  def update
+    @movie = Movie.find(movie_id)
+
+    if @movie.update_attributes(movie_params)
+      redirect_to root_path, notice: "Successfully updated movie #{@movie.title}."
+    else
+      flash.now[:alert] = @movie.errors.full_messages
+      render :edit
+    end
+  end
+
   private
 
   def movie_params
-    params.require(:movie).permit(:title, :release_date, :description)
+    params.require(:movie).permit(:id, :title, :release_date, :description)
+  end
+
+  def movie_id
+    params[:id]
   end
 end
