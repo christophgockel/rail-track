@@ -1,33 +1,62 @@
 class MovieValidator
-  def self.valid?(movie)
-    new(movie).valid?
+  def self.validate(movie)
+    new(movie).validate
   end
 
   def initialize(movie)
     @movie = movie
   end
 
-  def valid?
-    has_title? && has_valid_release_date?
+  def validate
+    result = Result.new
+    result << validate_title
+    result << validate_has_release_date
+    result << validate_release_date
+    result
   end
 
   private
 
   attr_reader :movie
 
-  def has_title?
-    movie.title.present?
+  def validate_title
+    "Title can't be empty." if title_empty?
   end
 
-  def has_valid_release_date?
-    has_release_date? && release_date_not_before_1895?
+  def validate_has_release_date
+    "Release date can't be empty." if release_date_empty?
   end
 
-  def has_release_date?
-    !movie.release_date.nil?
+  def validate_release_date
+    return if release_date_empty?
+    "Release date is before the world's first motion picture." if release_date_before_1895?
   end
 
-  def release_date_not_before_1895?
-    movie.release_date.year >= 1895
+  def title_empty?
+    movie.title.blank?
+  end
+
+  def release_date_empty?
+    movie.release_date.nil?
+  end
+
+  def release_date_before_1895?
+    movie.release_date.year < 1895
+  end
+
+  class Result
+    attr_reader :messages
+
+    def initialize
+      @messages = []
+    end
+
+    def okay?
+      messages.empty?
+    end
+
+    def <<(message)
+      @messages << message if message
+    end
   end
 end
