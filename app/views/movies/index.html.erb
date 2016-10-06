@@ -7,10 +7,10 @@
   <% Movie.all.each do |movie| %>
     <li>
       <header>
-        <%= movie.title %> <time><%= movie.release_date.strftime("%e %B %Y") %></time>
+        <%= link_to(movie.title, show_movie_path(movie.id)) %> <time><%= movie.release_date.strftime("%e %B %Y") %></time>
       </header>
       <nav>
-        <%= link_to "Edit Movie", edit_movie_path(movie.id), class: "edit" %>
+        <%= link_to("Edit Movie", edit_movie_path(movie.id), class: "edit") %>
       </nav>
     </li>
   <% end %>

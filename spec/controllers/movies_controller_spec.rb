@@ -130,4 +130,13 @@ RSpec.describe MoviesController do
       expect(flash.now[:alert].first).to include("Title")
     end
   end
+
+  describe "#show" do
+    let(:movie) {Movie.create!(title: "title", release_date: Date.today)}
+
+    it "renders the show template" do
+      get :show, id: movie.id
+      expect(response).to render_template("show")
+    end
+  end
 end

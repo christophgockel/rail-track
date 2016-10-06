@@ -32,6 +32,10 @@ class MoviesController < ApplicationController
     end
   end
 
+  def show
+    @movie = Movie.find(movie_id)
+  end
+
   private
 
   def movie_params
