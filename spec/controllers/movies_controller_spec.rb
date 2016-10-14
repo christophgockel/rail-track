@@ -1,4 +1,5 @@
 require "rails_helper"
+require "movie_presenter"
 
 RSpec.describe MoviesController do
   describe "#index" do
@@ -137,6 +138,11 @@ RSpec.describe MoviesController do
     it "renders the show template" do
       get :show, id: movie.id
       expect(response).to render_template("show")
+    end
+
+    it "wraps a movie in a presenter" do
+      get :show, id: movie.id
+      expect(assigns(:movie)).to be_a(MoviePresenter)
     end
   end
 end

@@ -1,4 +1,5 @@
 require "movie_validator"
+require "movie_presenter"
 
 class MoviesController < ApplicationController
   def index
@@ -40,7 +41,7 @@ class MoviesController < ApplicationController
   end
 
   def show
-    @movie = Movie.find(movie_id)
+    @movie = MoviePresenter.new(Movie.find(movie_id))
   end
 
   private
