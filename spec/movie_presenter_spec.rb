@@ -2,6 +2,13 @@ require "rails_helper"
 require "movie_presenter"
 
 RSpec.describe MoviePresenter do
+  it "has an id" do
+    movie = Movie.new
+    presenter = described_class.new(movie)
+
+    expect(presenter.id).to eq(movie.id)
+  end
+
   it "titleizes the title" do
     movie = Movie.new(title: "the movie title")
     presenter = described_class.new(movie)

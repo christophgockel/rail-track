@@ -3,6 +3,8 @@ require "movie_presenter"
 
 RSpec.describe MoviesController do
   describe "#index" do
+    render_views
+
     it "renders the index template" do
       get :index
       expect(response).to render_template("index")
@@ -11,6 +13,12 @@ RSpec.describe MoviesController do
     it "has a list of movies" do
       get :index
       expect(assigns(:movies)).to be_an(Array)
+    end
+
+    it "wraps the movies in a presenter" do
+      movie = Movie.create!(title: "title", release_date: Date.today)
+      get :index
+      expect(assigns(:movies).first).to be_a(MoviePresenter)
     end
   end
 

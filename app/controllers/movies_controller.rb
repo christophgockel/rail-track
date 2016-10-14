@@ -3,7 +3,7 @@ require "movie_presenter"
 
 class MoviesController < ApplicationController
   def index
-    @movies = Movie.all.to_a
+    @movies = Movie.all.map {|movie| MoviePresenter.new(movie)}
   end
 
   def new

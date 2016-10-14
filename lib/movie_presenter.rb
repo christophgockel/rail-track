@@ -3,6 +3,10 @@ class MoviePresenter
     @movie = movie
   end
 
+  def id
+    movie.id
+  end
+
   def title
     movie.title.titleize
   end
