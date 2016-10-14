@@ -7,6 +7,11 @@ RSpec.describe MoviesController do
       get :index
       expect(response).to render_template("index")
     end
+
+    it "has a list of movies" do
+      get :index
+      expect(assigns(:movies)).to be_an(Array)
+    end
   end
 
   describe "#new" do

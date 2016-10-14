@@ -2,9 +2,9 @@
   <%= link_to "Add New Movie", new_movie_path %>
 </nav>
 
-<% if Movie.any? %>
+<% if @movies.any? %>
   <ul>
-  <% Movie.all.each do |movie| %>
+  <% @movies.each do |movie| %>
     <li>
       <header>
         <%= link_to(movie.title, show_movie_path(movie.id)) %> <time><%= movie.release_date.strftime("%e %B %Y") %></time>
