@@ -30,6 +30,8 @@ RSpec.describe MoviesController do
   end
 
   describe "#create" do
+    render_views
+
     def create_movie(attributes = {})
       post :create, movie: {
         "title":        "new movie",
@@ -51,17 +53,13 @@ RSpec.describe MoviesController do
     it "creates a new movie" do
       create_movie
 
-      newest_movie = Movie.last
-
-      expect(newest_movie.title).to eq("new movie")
-      expect(newest_movie.release_date).to eq(Date.parse("2016-10-01"))
-      expect(newest_movie.description).to eq("new description")
+      expect(Movie).to exist
     end
 
     it "does not create a new movie with validation errors" do
       create_movie(title: "")
 
-      expect(Movie.all).to be_empty
+      expect(Movie).not_to exist
     end
 
     it "re-renders the form again on errors" do

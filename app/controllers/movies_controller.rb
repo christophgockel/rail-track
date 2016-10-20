@@ -1,4 +1,5 @@
 require "movie_validator"
+require "movie_creator"
 require "movie_presenter"
 
 class MoviesController < ApplicationController
@@ -11,14 +12,13 @@ class MoviesController < ApplicationController
   end
 
   def create
-    @movie = Movie.new(movie_params)
-    validation = validate(@movie)
+    creation = MovieCreator.execute(movie_params)
 
-    if validation.okay?
-      @movie.save
-      redirect_to root_path, notice: "Successfully created movie #{@movie.title}."
+    if creation.successful?
+      redirect_to root_path, notice: "Successfully created movie #{creation.movie.title}."
     else
-      flash.now[:alert] = validation.messages
+      @movie = creation.movie
+      flash.now[:alert] = creation.messages
       render :new
     end
   end
