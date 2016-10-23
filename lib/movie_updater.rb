@@ -1,4 +1,5 @@
 require "movie_validator"
+require "result"
 
 class MovieUpdater
   def self.execute(movie, attributes)
@@ -30,7 +31,7 @@ class MovieUpdater
   end
 
   def result_of_update
-    Update.new(movie, validation.messages)
+    Result.new(movie, validation.messages)
   end
 
   def movie
@@ -39,18 +40,5 @@ class MovieUpdater
 
   def validation
     @validation ||= MovieValidator.validate(movie)
-  end
-
-  class Update
-    attr_reader :movie, :messages
-
-    def initialize(movie, messages)
-      @movie    = movie
-      @messages = messages
-    end
-
-    def successful?
-      messages.empty?
-    end
   end
 end
