@@ -88,6 +88,8 @@ RSpec.describe MoviesController do
   end
 
   describe "#update" do
+    render_views
+
     let(:movie) {Movie.create!(title: "old title", release_date: Date.today)}
 
     def update_movie(attributes = {})
@@ -114,22 +116,14 @@ RSpec.describe MoviesController do
                    release_date: Date.parse("1984-06-08"),
                    description: "updated description")
 
-      movie.reload
-
-      expect(movie.title).to eq("updated title")
-      expect(movie.release_date).to eq(Date.parse("1984-06-08"))
-      expect(movie.description).to eq("updated description")
+      expect(movie.reload.title).to eq("updated title")
     end
 
     it "does not update a movie with validation errors" do
-      old_title = movie.title
       update_movie(id: movie.id,
-                   title: "updated title",
-                   release_date: nil)
+                   title: "")
 
-      movie.reload
-
-      expect(movie.title).to eq(old_title)
+      expect(movie.reload.title).not_to eq("")
     end
 
     it "re-renders the form again on errors" do

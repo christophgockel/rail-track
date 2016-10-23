@@ -1,6 +1,6 @@
-require "movie_validator"
 require "movie_creator"
 require "movie_presenter"
+require "movie_updater"
 
 class MoviesController < ApplicationController
   def index
@@ -28,15 +28,13 @@ class MoviesController < ApplicationController
   end
 
   def update
-    @movie = Movie.find(movie_id)
-    @movie.assign_attributes(movie_params)
-    validation = validate(@movie)
+    update = MovieUpdater.execute(movie_id, movie_params)
 
-    if validation.okay?
-      @movie.save
-      redirect_to root_path, notice: "Successfully updated movie #{@movie.title}."
+    if update.successful?
+      redirect_to root_path, notice: "Successfully updated movie #{update.movie.title}."
     else
-      flash.now[:alert] = validation.messages
+      @movie = update.movie
+      flash.now[:alert] = update.messages
       render :edit
     end
   end
@@ -53,9 +51,5 @@ class MoviesController < ApplicationController
 
   def movie_id
     params[:id]
-  end
-
-  def validate(movie)
-    MovieValidator.validate(movie)
   end
 end
