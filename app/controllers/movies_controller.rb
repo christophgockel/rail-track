@@ -1,10 +1,10 @@
-require "movie_creator"
-require "movie_presenter"
-require "movie_updater"
+require "movies/creator"
+require "movies/presenter"
+require "movies/updater"
 
 class MoviesController < ApplicationController
   def index
-    @movies = Movie.all.map {|movie| MoviePresenter.new(movie)}
+    @movies = Movie.all.map {|movie| Movies::Presenter.new(movie)}
   end
 
   def new
@@ -12,7 +12,7 @@ class MoviesController < ApplicationController
   end
 
   def create
-    creation = MovieCreator.execute(movie_params)
+    creation = Movies::Creator.execute(movie_params)
 
     if creation.successful?
       redirect_to root_path, notice: "Successfully created movie #{creation.movie.title}."
@@ -28,7 +28,7 @@ class MoviesController < ApplicationController
   end
 
   def update
-    update = MovieUpdater.execute(movie_id, movie_params)
+    update = Movies::Updater.execute(movie_id, movie_params)
 
     if update.successful?
       redirect_to root_path, notice: "Successfully updated movie #{update.movie.title}."
@@ -40,7 +40,7 @@ class MoviesController < ApplicationController
   end
 
   def show
-    @movie = MoviePresenter.new(Movie.find(movie_id))
+    @movie = Movies::Presenter.new(Movie.find(movie_id))
   end
 
   private

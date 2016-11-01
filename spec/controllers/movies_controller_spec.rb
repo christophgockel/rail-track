@@ -1,5 +1,5 @@
 require "rails_helper"
-require "movie_presenter"
+require "movies/presenter"
 
 RSpec.describe MoviesController do
   describe "#index" do
@@ -18,7 +18,7 @@ RSpec.describe MoviesController do
     it "wraps the movies in a presenter" do
       movie = Movie.create!(title: "title", release_date: Date.today)
       get :index
-      expect(assigns(:movies).first).to be_a(MoviePresenter)
+      expect(assigns(:movies).first).to be_a(Movies::Presenter)
     end
   end
 
@@ -147,7 +147,7 @@ RSpec.describe MoviesController do
 
     it "wraps a movie in a presenter" do
       get :show, id: movie.id
-      expect(assigns(:movie)).to be_a(MoviePresenter)
+      expect(assigns(:movie)).to be_a(Movies::Presenter)
     end
   end
 end

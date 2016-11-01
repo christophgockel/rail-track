@@ -1,7 +1,7 @@
 require "rails_helper"
-require "movie_creator"
+require "movies/creator"
 
-RSpec.describe MovieCreator do
+RSpec.describe Movies::Creator do
   describe "successful creation" do
     let(:movie_attributes) {{
       title:        "the title",

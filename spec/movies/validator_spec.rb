@@ -1,10 +1,10 @@
 require "rails_helper"
-require "movie_validator"
+require "movies/validator"
 
-RSpec.describe MovieValidator do
+RSpec.describe Movies::Validator do
 
   def validation_of(movie)
-    MovieValidator.validate(movie)
+    described_class.validate(movie)
   end
 
   context "valid movie" do

@@ -1,7 +1,7 @@
 require "rails_helper"
-require "movie_updater"
+require "movies/updater"
 
-RSpec.describe MovieUpdater do
+RSpec.describe Movies::Updater do
   let(:movie) {Movie.create(title: "the title",
                             release_date: Date.today,
                             description: "the description")}

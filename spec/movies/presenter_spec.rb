@@ -1,7 +1,7 @@
 require "rails_helper"
-require "movie_presenter"
+require "movies/presenter"
 
-RSpec.describe MoviePresenter do
+RSpec.describe Movies::Presenter do
   it "has an id" do
     movie = Movie.new
     presenter = described_class.new(movie)
